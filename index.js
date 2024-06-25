@@ -52,4 +52,4 @@ server.get('/users/:id', async (req, res) => {
     }
 });
 
-export default server;
+export { server };
