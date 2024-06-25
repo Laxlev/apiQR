@@ -1,5 +1,6 @@
 import admin from 'firebase-admin';
 import express from 'express';
+import cors from 'cors';
 
 const serviceAccount = {
     type: process.env.type,
@@ -28,6 +29,8 @@ try {
 
 const server = express();
 const port = process.env.PORT || 3000;
+
+server.use(cors());
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
