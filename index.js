@@ -4,7 +4,7 @@ import { collection } from "firebase/firestore";
 import express from 'express';
 import { getDocs } from "firebase/firestore";
 
-firebaseConfig = {
+const firebaseConfig = {
     apiKey: process.env.apiKey,
     authDomain: process.env.authDomain,
     projectId: process.env.projectId,
@@ -12,6 +12,7 @@ firebaseConfig = {
     messagingSenderId: process.env.messagingSenderId,
     appId: process.env.appId   
 };
+console.log(firebaseConfig);
 
 const app = initializeApp(firebaseConfig);
 const server = express();
