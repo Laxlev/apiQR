@@ -24,7 +24,12 @@ server.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
 
+server.get('/', (req, res) => {
+    res.send('Hello World');
+});
+
 server.get('/users/:id', async (req, res) => {
+    console.log('GET /users/:id');
     const id = req.params.id;
     const ref = doc(db, 'users', id);
     const docSnap = await getDoc(ref);
