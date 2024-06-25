@@ -2,6 +2,8 @@ import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import express from 'express';
 
+var admin = require("firebase-admin");
+
 const serviceAccount = {
     type: process.env.type,
     project_id: process.env.project_id,
@@ -16,22 +18,29 @@ const serviceAccount = {
     universe_domain: process.env.universe_domain
 };
 
-initializeApp({
-credential: cert(serviceAccount)
-});
+let db;
 
-const db = getFirestore();
+try {
+    admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount)
+    });
+    db = getFirestore();
+} catch (error) {
+    console.error('Error initializing Firebase:', error);
+}
 
 const server = express();
 const port = 3000;
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
+}).on('error', (err) => {
+    console.error('Server failed to start:', err);
 });
 
 server.get('/', (req, res) => {
-    res.send('Hello World');
-});
+    res.status(200).send('OK');
+  });
 
 server.get('/users/:id', async (req, res) => {
     try {
