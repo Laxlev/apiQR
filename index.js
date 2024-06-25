@@ -1,14 +1,11 @@
-import { initializeApp, cert } from 'firebase-admin/app';
-import { getFirestore } from 'firebase-admin/firestore';
+import admin from 'firebase-admin';
 import express from 'express';
-
-var admin = require("firebase-admin");
 
 const serviceAccount = {
     type: process.env.type,
     project_id: process.env.project_id,
     private_key_id: process.env.private_key_id,
-    private_key: process.env.private_key,
+    private_key: process.env.private_key.replace(/\\n/g, '\n'),
     client_email: process.env.client_email,
     client_id: process.env.client_id,
     auth_uri: process.env.auth_uri,
@@ -24,13 +21,13 @@ try {
     admin.initializeApp({
         credential: admin.credential.cert(serviceAccount)
     });
-    db = getFirestore();
+    db = admin.firestore();
 } catch (error) {
     console.error('Error initializing Firebase:', error);
 }
 
 const server = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 server.listen(port, () => {
     console.log(`Server running on port ${port}`);
@@ -40,7 +37,7 @@ server.listen(port, () => {
 
 server.get('/', (req, res) => {
     res.status(200).send('OK');
-  });
+});
 
 server.get('/users/:id', async (req, res) => {
     try {
