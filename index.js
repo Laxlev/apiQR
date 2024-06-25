@@ -1,12 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "./.env";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import express from 'express';
 import { getDocs } from "firebase/firestore";
 
 
-const app = initializeApp(firebaseConfig);
+const app = initializeApp(process.env.apiKey, process.env.authDomain, process.env.projectId, process.env.storageBucket, process.env.messagingSenderId, process.env.appId);
 const server = express();
 const port = server.get('port') || 1722;
 
