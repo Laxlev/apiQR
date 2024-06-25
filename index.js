@@ -16,7 +16,7 @@ console.log(firebaseConfig);
 
 const app = initializeApp(firebaseConfig);
 const server = express();
-const port = server.get('port') || 1722;
+const port = server.env.PORT || 3000;
 
 const db = getFirestore(app);
 
