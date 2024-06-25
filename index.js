@@ -4,8 +4,16 @@ import { collection } from "firebase/firestore";
 import express from 'express';
 import { getDocs } from "firebase/firestore";
 
+firebaseConfig = {
+    apiKey: process.env.apiKey,
+    authDomain: process.env.authDomain,
+    projectId: process.env.projectId,
+    storageBucket: process.env.storageBucket,
+    messagingSenderId: process.env.messagingSenderId,
+    appId: process.env.appId   
+};
 
-const app = initializeApp(process.env.apiKey, process.env.authDomain, process.env.projectId, process.env.storageBucket, process.env.messagingSenderId, process.env.appId);
+const app = initializeApp(firebaseConfig);
 const server = express();
 const port = server.get('port') || 1722;
 
